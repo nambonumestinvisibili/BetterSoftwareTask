@@ -4,6 +4,8 @@ export const getJwtToken = () => localStorage.getItem(LOCAL_STORAGE_JWT_TOKEN_NA
 
 export const setJwtToken = token => localStorage.setItem(LOCAL_STORAGE_JWT_TOKEN_NAME, token)
 
+export const clearJwtToken = () => localStorage.removeItem(LOCAL_STORAGE_JWT_TOKEN_NAME)
+
 export const prepareJwtHeader = () => {
   const jwt = getJwtToken()
   return jwt

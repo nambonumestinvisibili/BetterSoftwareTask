@@ -1,5 +1,5 @@
 import { authApi } from "../../api/api"
-import { getJwtToken, setJwtToken } from "./auth-header"
+import { setJwtToken } from "./auth-header"
 
 
 export const loginAsAnonymousUser = async (deviceName, callback) => {
