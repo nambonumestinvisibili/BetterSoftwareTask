@@ -1,6 +1,8 @@
 import React from 'react'
 import styledComponents from 'styled-components'
 import VideoTitle from './VideoTItle'
+import { useNavigate } from 'react-router-dom'
+import { VIDEO_ROUTE } from '../../../components/main/Routes'
 
 const DESIRED_IMAGE_TYPE_CODE = 'FRAME'
 const PLACEHOLDER_IMAGE_URL = ''
@@ -27,10 +29,19 @@ const VideoBaner = ({ video }) => {
     return imageUrl ? imageUrl.Url : PLACEHOLDER_IMAGE_URL
   }
 
+  const navigate = useNavigate()
+
+  const goToVideoPlayer = (video) => {
+    navigate(`${VIDEO_ROUTE}/${video?.Id}`)
+  }
+
   return (
     <Wrapper>
       <VideoTitle title={video?.Title}/>
-      <StyledImage src={retrieveImageUrl(video)} alt="Video" />
+      <StyledImage 
+        onClick={() => goToVideoPlayer(video)}
+        src={retrieveImageUrl(video)} 
+        alt="Video" />
     </Wrapper>
   )
 }

@@ -39,13 +39,11 @@ const Home = () => {
     if (videos.length < SATISFYING_NUMBER_OF_VIDEOS && lastlyDownloadedListId < LAST_LIST_ID) {
       getListOfVideos(lastlyDownloadedListId)
         .then(result => {
-          addVideos(result.data.Entities)
+          result.data?.Entities && addVideos(result.data?.Entities)
           setLastlyDownloadedListId(l => l + 1)
         })
     }
   }, [videos])
-
-
 
   return (
     <Wrapper>

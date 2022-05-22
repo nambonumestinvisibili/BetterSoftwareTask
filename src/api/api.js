@@ -5,15 +5,17 @@ const API_URL = 'https://thebetter.bsgroup.eu/'
 
 const HTTP_401 = 401
 
-const instance= axios.create({
+const instance = axios.create({
   baseURL: API_URL,
   headers: prepareJwtHeader()
 })
 
-axios.interceptors.response.use(response => {
+instance.interceptors.response.use(response => {
   return response
 }, error => {
+  debugger
   if (error.response.status === HTTP_401) {
+    debugger
     clearJwtToken()
     window.location.reload()
   }
@@ -32,5 +34,11 @@ export const authApi = {
 
 export const videosApi = {
   getListOfVideos: (body) => instance
-    .post('Media/GetMediaList', body)
+    .post('Media/GetMediaList', body),
+
+  getTrialVideo: (mediaId) => instance
+    .post('Media/GetMediaPlayInfo', {
+      MediaId: Number(mediaId),
+      StreamType: "TRIAL"
+    })
 }

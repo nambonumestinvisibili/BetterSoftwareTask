@@ -15,7 +15,7 @@ const Wrapper = styledComponents.div`
 const VideoList = ({ videos }) => {
   return (
     <Wrapper>
-      {videos.map(video => <VideoBaner key={video.Guid} video={video} />)}
+      {videos.map((video, idx) => <VideoBaner key={video.Guid + idx} video={video} />)}
     </Wrapper>
   )
 }
