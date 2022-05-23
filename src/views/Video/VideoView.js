@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import ReactPlayer from 'react-player'
 import { useParams } from 'react-router-dom'
 import styledComponents from 'styled-components'
 import { videosApi } from '../../api/api'
+import { GlobalContext } from '../../App'
 import Header from '../../components/header/Header'
 import { COLORS } from '../../style/colors'
 import { FONT_SIZES } from '../../style/font-sizes'
@@ -23,6 +24,12 @@ const VideoView = () => {
   const [visibleError, setVisibleError] = useState()
 
   const { id } = useParams()
+  
+  const { showLoading, hideLoading } = useContext(GlobalContext)
+
+  useEffect(() => {
+    showLoading()
+  }, [])
 
   useEffect(() => {
     videosApi.getTrialVideo(id)
@@ -47,7 +54,11 @@ const VideoView = () => {
       <ReactPlayer 
         url={video?.ContentUrl}
         playing
-        onError={() => setVisibleError(true)}
+        onError={() => {
+          setVisibleError(true)
+          hideLoading()
+        }}
+        onReady={() => hideLoading()}
       />
       { visibleError && 
           <NoFileError>

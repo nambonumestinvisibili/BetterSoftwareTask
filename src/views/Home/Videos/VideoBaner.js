@@ -15,6 +15,7 @@ const StyledImage = styledComponents.img`
   }
 
   aspect-ratio: 16 / 9;
+  max-width: 600px;
   height: fit-content;
 `
 

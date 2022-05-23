@@ -5,7 +5,6 @@ import VideoBaner from './VideoBaner'
 const Wrapper = styledComponents.div`
   width: 100%;
   height: 300px;
-  background-color: pink;
   display: flex;
   overflow-x: scroll;
   overflow-y: hidden;

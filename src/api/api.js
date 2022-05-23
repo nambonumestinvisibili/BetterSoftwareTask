@@ -1,5 +1,7 @@
 import axios from "axios"
 import { clearJwtToken, prepareJwtHeader } from "../services/auth/auth-header"
+import { loginAsAnonymousUser } from "../services/auth/auth.service"
+import { DEVICE_NAME } from "../utils/constants"
 
 const API_URL = 'https://thebetter.bsgroup.eu/'
 
@@ -13,11 +15,9 @@ const instance = axios.create({
 instance.interceptors.response.use(response => {
   return response
 }, error => {
-  debugger
   if (error.response.status === HTTP_401) {
-    debugger
     clearJwtToken()
-    window.location.reload()
+    loginAsAnonymousUser(DEVICE_NAME)
   }
   return error
 })

@@ -1,31 +1,30 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 import LoadingScreen from './components/main/LoadingScreen';
 import AppContent from './components/main/AppContent';
-import { loginAsAnonymousUser } from './services/auth/auth.service';
-import { getJwtToken } from './services/auth/auth-header';
+import styledComponents from 'styled-components';
 
-const loginIfThereIsNoJwtToken = (setLoading) => {
-  getJwtToken() 
-    ? setLoading(false)
-    : loginAsAnonymousUser("xxxxxxxxx", () => setLoading(false))  
-}
+const Wrapper = styledComponents.div`
+  position: relative;
+`
 
+export const GlobalContext = createContext()
 function App() {
   const [isLoading, setLoading] = useState(true)
 
-  useEffect(() => {
-    loginIfThereIsNoJwtToken(setLoading)
-  }, [])
+  const showLoading = () => setLoading(true)
+  const hideLoading = () => setLoading(false)
   
   return (
-    <div>
-      {
-        isLoading 
-          ? <LoadingScreen /> 
-          : <AppContent />
-      }
-    </div>
+    <GlobalContext.Provider value={{
+      showLoading,
+      hideLoading
+    }}>
+      <Wrapper> 
+        <LoadingScreen isLoading={isLoading} /> 
+        <AppContent />
+      </Wrapper>
+    </GlobalContext.Provider>
   );
 }
 
